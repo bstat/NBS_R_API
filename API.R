@@ -30,12 +30,11 @@ setClass("Resource"
 
 # HTTP GET
 setGeneric("get", def = function(x, ...) {base::get(x,...)})
-#setGeneric("get")
 
 setMethod("get"
           ,"Resource"
           ,function(x, url = "", params = "")
-            {            
+            { 
               if(params == ""){
                 q <- ""
               } else {
@@ -54,15 +53,9 @@ setMethod("post"
           ,"Resource"
           ,definition = function(x, url="", dat="", ...)
             {
-              
-              url <- paste(url, x@ext, sep = "")
-              
-              ## This line may not be necessary as POST should encode the arguements.
-              #dat <- curlEscape(dat)
-                          
+              url <- paste(url, x@ext, sep = "")                          
               #return(list(url=url, dat=dat))
-              return(POST(url, body = dat, encode = 'form'))
-              
+              return(POST(url, body = dat, encode = 'form'))              
             }
           )
  
@@ -109,15 +102,6 @@ setMethod("view"
 search <- function(x, ...) UseMethod("search")
 search.default <- function(x,...){base::search()}
 setGeneric("search")
-#setGeneric("search", function(x, ...){base::search()}, useAsDefault = base::search)
-
-#setGeneric("search")
-#setGeneric("search", base::search())
-#setGeneric("search", function(x, ...){print("sdsad")})
-#setGeneric("search", function(...){standardGeneric("search")})
-#setGeneric("search", function(x, ...){base::search()})
-#setGeneric("search", useAsDefault = base::search())
-#setGeneric("search", def = function(x, ...) {base::search()})
 
 setMethod("search"
           ,signature("Artists")
@@ -175,25 +159,18 @@ setClass("Metrics",
          ,contains = "Resource"
 )
 
-#setGeneric("profile", function(x, ...){print("Generic method/n")})
+##
 setGeneric("profile", function(x, ...){standardGeneric("profile")})
 
 setMethod("profile"
           ,"Metrics"
           ,definition = function(x, id = "", opt = "")
           {
-            #if(opt == ""){
-            #  return(post(x, url = paste(genUrl(x),"/", id, sep = ""),  dat = ''))
-            #} else {
-            # return(post(x, url = paste(genUrl(x),"/", id, sep = "") , dat = opt))
-            #}
             return(post(x, url = paste(genUrl(x),"/", id, sep = "") , dat = opt))
           }
 )
 
 ##
-#setGeneric("artist", function(x, ...){standardGeneric("artist")})
-
 setMethod("artist"
           ,"Metrics"
           ,definition = function(x, id = "", opt = "")
